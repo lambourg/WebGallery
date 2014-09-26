@@ -48,5 +48,6 @@ STATIC_URL = '/static/'
 WAR_PATH = os.path.join(os.path.dirname(BASE_DIR), 'client', 'war')
 STATICFILES_DIRS = (
   WAR_PATH,
+  os.path.join(BASE_DIR, 'user_data'),
 )
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')

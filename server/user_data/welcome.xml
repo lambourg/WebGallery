@@ -1,0 +1,19 @@
+<welcome>
+    <title>Welcome to the Web Gallery</title>
+    <image>/static/welcome.jpg</image>
+    <subtitle>Presentation:</subtitle>
+    <paragraph>
+        This gallery aims at allowing its users to browse and enjoy a complete
+        picture library via a simple web page, and thus allow them to always
+        have their picture with them.
+    </paragraph>
+    <subtitle>Instructions:</subtitle>
+    <paragraph>
+        In order to view the pictures, you need to select a directory
+        using the navigation box, on the left side of this page. Once the
+        directory is selected, the thumbnails of the pictures available in
+        this directory are displayed. A click on any thumbnail will show
+        the picture.
+    </paragraph>
+    <title>Have a good visit!</title>
+</welcome>
