@@ -25,6 +25,7 @@ import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.XMLParser;
+import com.lambourg.webgallery.client.resources.Resources;
 import com.lambourg.webgallery.client.rpc.RequestsBuilder;
 import com.lambourg.webgallery.shared.PictureDescriptor;
 import com.lambourg.webgallery.client.widgets.ExpandingTextArea;
@@ -98,7 +99,7 @@ public class SidePanel extends LayoutPanel implements
                     this.add(peopleLink);
                     peopleLink.setStyleName("wg-sidepanel-link");
 
-                    Image img = new Image("images/callout_black.gif");
+                    Image img = new Image(Resources.INST.popupCallout());
                     img.setStyleName("wg-popup-callout");
                     peopleLink.add(img);
 

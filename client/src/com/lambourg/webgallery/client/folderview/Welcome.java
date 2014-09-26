@@ -6,6 +6,12 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.xml.client.Document;
+import com.google.gwt.xml.client.Element;
+import com.google.gwt.xml.client.Node;
+import com.google.gwt.xml.client.NodeList;
+import com.google.gwt.xml.client.XMLParser;
+import com.lambourg.webgallery.client.rpc.RequestsBuilder;
 
 public class Welcome extends ScrollPanel {
     private FlowPanel panel;
@@ -13,32 +19,42 @@ public class Welcome extends ScrollPanel {
     public Welcome() {
         super();
 
-        SimplePanel container = new SimplePanel();
-        container.setStyleName("wg-Intro");
-        this.add(container);
+        new RequestsBuilder() {
+            @Override
+            public void onResponse(String content) {
+                Document xml = XMLParser.parse(content);
+                Welcome.this.bind(xml);
+            }
+        }.getWelcomeMessage();
+    }
+    
+    public void bind(Document xmldoc) {
+        Element root = xmldoc.getDocumentElement();
+        NodeList children = root.getChildNodes();
 
+        this.clear();
         this.panel = new FlowPanel();
-        this.panel.setStyleName("wg-Intro-bg");
-        container.add(this.panel);
-
-        this.addTitle("Welcome to the AdaCore pictures web site!");
-        this.addImage("static/images/group.jpg");
-        this.addSubTitle("Presentation:");
-        this.addText("This internal website aims at compiling in one place " +
-                "all the pictures that were gathered during the various " +
-                "events people at AdaCore were involved in, and where " +
-                "pictures were taken. 'Events' means of course annual events " +
-                "such as the summer gathering or the christmas dinners, but " +
-                "also any other external or internal event.");
-        this.addText("To do so, we only rely on the contributions of people " +
-                "who participated to those events. If you don't send your " +
-                "pictures, they won't be here. Please contribute! (see " +
-                "below to know how to submit your pictures).");
-        this.addSubTitle("Instructions:");
-        this.addText("In order to view the pictures, you need to select a directory using the navigation box, on the left side of this page. Once the directory is selected, the thumbnails of the pictures available in this directory are displayed. A click on any thumbnail will show the picture.");
-        this.addSubTitle("How to submit new pictures:");
-        this.addText("Please go to <a href=\"upload.html\">this page</a> and follow the instructions. In case of trouble, please contact <a href=\"mailto:lambourg@adacore.com\">lambourg@adacore.com</a>");
-        this.addTitle("Have a good visit!");
+        this.panel.setStyleName("wg-Intro");
+        
+        for (int j = 0; j < children.getLength(); ++j) {
+            Node n = children.item(j);
+            if (n.getNodeType() != Node.ELEMENT_NODE) {
+                continue;
+            }
+            Element elt = (Element)n;
+            String tag = elt.getNodeName();
+            
+            if ("title".equals(tag)) {
+                this.addTitle(elt.getFirstChild().getNodeValue());
+            } else if ("image".equals(tag)) {
+                this.addImage(elt.getFirstChild().getNodeValue());
+            } else if ("subtitle".equals(tag)) {
+                this.addSubTitle(elt.getFirstChild().getNodeValue());
+            } else if ("paragraph".equals(tag)) {
+                this.addText(elt.getFirstChild().getNodeValue());
+            }
+        }
+        
     }
 
     public void addTitle(String title) {

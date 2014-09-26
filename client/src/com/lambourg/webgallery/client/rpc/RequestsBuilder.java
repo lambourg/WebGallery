@@ -63,6 +63,11 @@ public abstract class RequestsBuilder {
         }
     }
     
+    public void getWelcomeMessage() {
+        String postUrl = "/static/welcome.xml";
+        this.doGetRequest(postUrl);
+    }
+
     public void getDirectories() {
         String postUrl = "/folders/";
         String requestData = "?tz=" + URL.encodeQueryString(RequestsBuilder.getTimeZone());

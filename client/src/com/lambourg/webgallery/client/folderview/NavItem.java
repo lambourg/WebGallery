@@ -45,7 +45,7 @@ public class NavItem
     public static List<NavItem> bind(Element doc, int indent) {
         ArrayList<NavItem> list = new ArrayList<NavItem>();
 
-        assert (doc.getTagName().equals("directory"));
+        assert (doc.getTagName().equals("folder"));
 
         NodeList nodes = doc.getChildNodes();
 

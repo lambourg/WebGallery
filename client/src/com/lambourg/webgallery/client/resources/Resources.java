@@ -38,6 +38,9 @@ public interface Resources extends ClientBundle {
 
     @Source("video-overlay.png")
     public ImageResource videoOverlay();
+    
+    @Source("callout_black.gif")
+    public ImageResource popupCallout();
 }
 
 interface Styles extends CssResource {
