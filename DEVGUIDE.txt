@@ -1,0 +1,28 @@
+Client part: gwt
+----------------
+
+Install gwt sdk
+Make sure you have ant
+Edit client/build.xml to reflect your installation of gwt (edit property
+ gwt.sdk)
+
+$ cd client_gwt
+$ and build
+
+Server part: django
+-------------------
+
+Dependencies:
+- Python
+- Django + proper database configuration
+- Pillow
+- Imagemagick available from the PATH
+- pytz
+- mod_wsgi + Apache
+
+Create a server/settings module (you can copy server/settings_example) and edit
+with your own settings.
+Authenticated users are required to use webgallery, so you need to put in place
+authentication.
+
+

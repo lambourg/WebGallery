@@ -1,0 +1,5 @@
+bin/
+gwt-unitCache/
+war/webgallery
+war/WEB-INF
+.settings/
