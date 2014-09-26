@@ -35,6 +35,7 @@ public class Welcome extends ScrollPanel {
         this.clear();
         this.panel = new FlowPanel();
         this.panel.setStyleName("wg-Intro");
+        this.add(this.panel);
         
         for (int j = 0; j < children.getLength(); ++j) {
             Node n = children.item(j);
