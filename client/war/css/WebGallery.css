@@ -58,6 +58,7 @@ body > div {
 
 .wg-nav {
     padding-top: 10px;
+    margin: 0;
 }
 .wg-navitem {
    color: #eee;
