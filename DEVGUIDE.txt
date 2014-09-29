@@ -1,14 +1,3 @@
-Client part: gwt
-----------------
-
-Install gwt sdk
-Make sure you have ant
-Edit client/build.xml to reflect your installation of gwt (edit property
- gwt.sdk)
-
-$ cd client_gwt
-$ and build
-
 Server part: django
 -------------------
 
@@ -18,11 +7,40 @@ Dependencies:
 - Pillow
 - Imagemagick available from the PATH
 - pytz
+- South (to help you upgrade your database when needed)
 - mod_wsgi + Apache
 
 Create a server/settings module (you can copy server/settings_example) and edit
-with your own settings.
+with your own settings (database, location of your pictures, etc.).
 Authenticated users are required to use webgallery, so you need to put in place
 authentication.
+
+Client part: gwt
+----------------
+
+Install gwt sdk
+Make sure you have ant
+Edit client/build.xml to reflect your installation of gwt (edit property
+ gwt.sdk)
+
+$ cd client
+$ ant build
+
+Running from Eclipse:
+
+Click on the arrow next to the 'Run' icon, select "Run configurations"
+
+1- Main: project "WebGallery", Main class "com.google.gwt.dev.DevMode"
+2- Server: unselect "Run built-in server"
+3- GWT: URL set either "http://localhost:8000/" if you're using manage.py to run
+   the server, or use "http://localhost/" if you're having a locally hosted
+   server, or use any address/port according to the way you launch the
+   django server.
+4- Arguments: VM arguments, add "-Dgwt.persistentunitcachedir=build" so that
+   useless temporary files are all located to the same build directory, ignored
+   by git (so will never be committed).
+
+You can now click 'Run'
+
 
 
