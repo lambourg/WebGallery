@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.contenttypes',
+    'django.contrib.staticfiles',
     'webgallery'
 ]
 
@@ -52,6 +53,7 @@ ROOT_URLCONF = 'webgallery.urls'
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_DIR, 'templates'),
 ]
+STATIC_URL='/static/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

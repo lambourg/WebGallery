@@ -18,11 +18,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
-# Application definition
-
-INSTALLED_APPS.append('django.contrib.staticfiles')
-
-# dummy authentication. DON'T USE IN PRORDUCTION !!!!
+# dummy authentication. NEVER EVER USE IN PRORDUCTION !!!!
+# this would give everyone write access to the database
 
 MIDDLEWARE_CLASSES.append('settings.dummyauth.DummyAuthMiddleware')
 AUTHENTICATION_BACKENDS = ('webgallery.dummyauth.DummyBackend',)
@@ -44,7 +41,6 @@ DATABASES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
 WAR_PATH = os.path.join(os.path.dirname(BASE_DIR), 'client', 'war')
 STATICFILES_DIRS = (
   WAR_PATH,
