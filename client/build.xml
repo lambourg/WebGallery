@@ -18,13 +18,16 @@
       <classpath>
         <pathelement location="src"/>
         <path refid="project.class.path"/>
-        <pathelement location="/Users/lambourg/install/gwt-2.6.1/validation-api-1.0.0.GA.jar" />
-        <pathelement location="/Users/lambourg/install/gwt-2.6.1/validation-api-1.0.0.GA-sources.jar" />
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar" />
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar" />
       </classpath>
+      <sysproperty key="gwt.persistentunitcachedir" value="build"/>
       <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
       <jvmarg value="-Xmx256M"/>
       <arg line="-war"/>
       <arg value="war"/>
+      <arg line="-deploy"/>
+      <arg value="build/deploy"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg line="${gwt.args}"/>
       <arg value="com.lambourg.webgallery.WebGallery"/>
@@ -33,12 +36,8 @@
 
   <target name="build" depends="gwtc" description="Build this project" />
 
-  <target name="war" depends="build" description="Create a war file">
-    <zip destfile="WebGallery.war" basedir="war"/>
-  </target>
-
   <target name="clean" description="Cleans this project">
-    <delete dir="war/WEB-INF/classes" failonerror="false" />
+    <delete dir="build" failonerror="false" />
     <delete dir="war/webgallery" failonerror="false" />
   </target>
 

@@ -1,5 +1,3 @@
-bin/
-gwt-unitCache/
+build/
 war/webgallery
-war/WEB-INF
 .settings/
