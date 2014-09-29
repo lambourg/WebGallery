@@ -69,7 +69,6 @@ public class FolderView
         this.add(this.title);
         this.title.getElement().getStyle().setZIndex(Style.Z_INDEX_TITLEBAR);
         this.setWidgetTopHeight(this.title, 0, TitleBar.getHeight());
-        this.setWidgetLeftRight(this.title, Nav.getDesiredWidth() + 5, 0);
         
         if (Style.fullscreenEnabled()) {
             TitleBarIcon icon = new TitleBarIcon(
@@ -161,15 +160,19 @@ public class FolderView
     
     @Override
     public void onResize() {
-        super.onResize();
-        
-        if (!this.duringStartup)
+        if (!this.duringStartup) {
             this.update(1.0);
+        }
+        super.onResize();
     }
 
     private void update(double animValue) {
         int x;
         int navWidth = Nav.getDesiredWidth() + 5;
+        if (this.getOffsetWidth() > 0 && navWidth > (this.getOffsetWidth() / 4)) {
+            navWidth = this.getOffsetWidth() / 4;
+            this.nav.setWidth(navWidth - 5);
+        }
 
         x = (int)(Math.round((double)(navWidth + 5) * (animValue - 1.0)));
 

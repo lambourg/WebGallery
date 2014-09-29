@@ -19,13 +19,14 @@ public class Nav
     private NavItem selected;
     private String selectedDir;
     private static final int LEFT = 10;
+    private int width = Style.NAV_WIDTH + LEFT;
 
     public Nav() {
         super();
         this.setStyleName("wg-nav");
         this.selectedDir = null;
       
-        this.setWidth(Style.NAV_WIDTH + LEFT + "px");
+        this.setWidth(this.width + "px");
         this.setHeight("100%");
 
         this.addAttachHandler(new Handler() {
@@ -46,7 +47,8 @@ public class Nav
     
     public void bind(Document directories) {
         this.rootItem = new NavItem(directories.getDocumentElement(), 0);
-        this.add(rootItem);
+        this.add(this.rootItem);
+        this.rootItem.setWidth(this.width);
         if (this.selectedDir != null) {
             this.setSelected(this.selectedDir);
             this.selectedDir = null;
@@ -63,6 +65,8 @@ public class Nav
                         Nav.this.fireEvent(new LoadFolderEvent(event.getSource()));
                     }
                 });
+        //  This updates the widths of the rootItem and its children
+        this.setWidth(this.width);
     }
     
     public String getDirName(String dirId) {
@@ -92,6 +96,19 @@ public class Nav
         }
     }
 
+    public void setWidth(int width) {
+        if (this.width == width) {
+            return;
+        }
+        this.width = width;
+        this.setWidth(width + "px");
+        this.rootItem.setWidth(width - LEFT);
+    }
+    
+    public int getWidth(int width) {
+        return this.width;
+    }
+    
     public static int getDesiredWidth() {
         return Style.NAV_WIDTH + LEFT;
     }

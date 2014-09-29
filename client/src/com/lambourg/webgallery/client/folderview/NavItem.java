@@ -41,6 +41,7 @@ public class NavItem
     private Boolean isOver;
     private Boolean isSelected;
     List<NavItem> children;
+    private int indent;
 
     public static List<NavItem> bind(Element doc, int indent) {
         ArrayList<NavItem> list = new ArrayList<NavItem>();
@@ -67,12 +68,12 @@ public class NavItem
     public NavItem(Element elt, int indent) {
         super();
 
-        this.setWidth(Style.NAV_WIDTH + "px");
         this.id = elt.getAttribute("id");
         this.title = elt.getAttribute("name");
         if (this.title.equals("/")) {
             this.title = "Folders";
         }
+        this.indent = indent;
         this.hasPictures = elt.getAttribute("haspictures").equals("1");
         this.children = NavItem.bind(elt, indent + 1);
         this.getElement().getStyle().setCursor(Cursor.POINTER);
@@ -88,7 +89,6 @@ public class NavItem
 
         this.self = new FlowPanel();
         this.self.setStyleName("wg-navitem");
-        this.self.setWidth(Style.NAV_WIDTH + "px");
         this.add(this.self);
         
         this.arrow = Canvas.createIfSupported();
@@ -103,7 +103,6 @@ public class NavItem
         this.text = new Label(this.title);
         this.text.setStyleName("wg-navitem-text");
         this.self.add(this.text);
-        this.text.setWidth((Style.NAV_WIDTH - indentWidth(indent + 1)) + "px");
         this.text.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
 
         this.isOpen = false;
@@ -149,6 +148,15 @@ public class NavItem
                 NavItem.this.onClick();
             }
         }, ClickEvent.getType());
+    }
+    
+    public void setWidth(int width) {
+        this.setWidth(width + "px");
+        this.self.setWidth(width + "px");
+        this.text.setWidth((width - indentWidth(this.indent + 1)) + "px");
+        for (NavItem child: this.children) {
+            child.setWidth(width);
+        }
     }
     
     public String getDirId() {
