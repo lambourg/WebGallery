@@ -172,7 +172,7 @@ public class PictureView
 
     private static int MARGIN_SIDE = 250;
     private static int DIAPORAMA_TIMER = 5000;
-    private static int HIDE_CONTROLS_TIMER = 4000;
+    private static int HIDE_CONTROLS_TIMER = 2000;
 
     private HandlerRegistration keydownhandler;
     private InternalLoader loader;
@@ -209,6 +209,11 @@ public class PictureView
     
     private Timer diapoTimer;
     private Timer hideControlsTimer;
+    /* is set when a mouse move event is received: this allows us to detect
+     * whether the browser is a touch-only device, as in this case we will
+     * never receive mouseMove events.
+     */
+    private boolean hasMouseMoveEvent = false;
 
     /**
      * Creates a new picture view to display pictures described in a list of
@@ -241,6 +246,7 @@ public class PictureView
         this.canvas.addMouseMoveHandler(new MouseMoveHandler() {
             @Override
             public void onMouseMove(MouseMoveEvent event) {
+                PictureView.this.hasMouseMoveEvent = true;
                 PictureView.this.onMouseMove();
             }
         });
@@ -529,7 +535,7 @@ public class PictureView
         this.loadingLabel.setStyleName("wg-pictureview-loading");
 
         this.add(this.loadingLabel);
-        this.setWidgetLeftRight(this.loadingLabel, 0, Unit.PX, 0, Unit.PX);
+        this.setWidgetLeftRight(this.loadingLabel, 0, Unit.PX, MARGIN_SIDE, Unit.PX);
         this.setWidgetTopBottom(this.loadingLabel,
                 this.getOffsetHeight() / 2,
                 Unit.PX, 0, Unit.PX);
@@ -708,6 +714,13 @@ public class PictureView
      * Called upon mouse move event on the canvas
      */
     private void onMouseMove() {
+        if (!this.hasMouseMoveEvent) {
+            // on a tablet or smarphone, we don't hide the controls as there
+            // is no mousemove event and so no way to make the controls reappear
+            this.showControls();
+            return;
+        }
+        
         if (this.hideControlsTimer == null) {
             this.showControls();
 
