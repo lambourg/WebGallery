@@ -83,36 +83,41 @@ public class SidePanel extends LayoutPanel implements
                     this.add(label);
                 }
                 if (!this.others.isEmpty()) {
-                    String text = Integer.toString(this.others.size());
-
-                    if (this.you) {
-                        text += " other";
-                    }
-
+                    String text;
                     if (this.others.size() == 1) {
-                        text += " person";
+                        text = this.others.get(0);
                     } else {
+                        text = Integer.toString(this.others.size());
+
+                        if (this.you) {
+                            text += " other";
+                        }
+
                         text += " people";
                     }
 
-                    FlowPanel peopleLink = new FlowPanel();
-                    this.add(peopleLink);
-                    peopleLink.setStyleName("wg-sidepanel-link");
-
-                    Image img = new Image(Resources.INST.popupCallout());
-                    img.setStyleName("wg-popup-callout");
-                    peopleLink.add(img);
-
-                    FlowPanel popup = new FlowPanel();
-                    popup.setStyleName("wg-popup");
-                    peopleLink.add(popup);
-
-                    for (String name : this.others) {
-                        popup.add(new Label(name));
-                    }
-
                     HTML label = new HTML(text);
-                    peopleLink.add(label);
+
+                    if (this.others.size() == 1) {
+                        this.add(label);
+                    } else {
+                        FlowPanel peopleLink = new FlowPanel();
+                        this.add(peopleLink);
+                        peopleLink.setStyleName("wg-sidepanel-link");
+
+                        Image img = new Image(Resources.INST.popupCallout());
+                        img.setStyleName("wg-popup-callout");
+                        peopleLink.add(img);
+
+                        FlowPanel popup = new FlowPanel();
+                        popup.setStyleName("wg-popup");
+                        peopleLink.add(popup);
+
+                        for (String name : this.others) {
+                            popup.add(new Label(name));
+                        }
+                        peopleLink.add(label);
+                    }
                 }
                 if (!this.you && this.others.size() == 1) {
                     HTML label = new HTML("&nbsp;likes it.");
