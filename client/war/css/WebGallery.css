@@ -215,6 +215,9 @@ body > div {
 	padding-left: 5px;
 	margin-bottom: 10px;
 }
+.wg-sidepanel-likes .wg-popup div {
+    display: block;
+}
 .wg-sidepanel-likes div {
 	display: inline-block;
 }
